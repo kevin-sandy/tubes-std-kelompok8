@@ -1,52 +1,84 @@
 #include "header.h"
 
-void pesanDelete(bool stat) { // tampilkan ke layar apakah terjadi delete atau tidak
-  if (stat) { // terjadi delete
-    cout << "Elemen berhasil dihapus." << endl;
-  } else { // tidak terjadi delete
-    cout << "Elemen tidak ada." << endl;
-  }
+// Stack
+Stack createStack() {
+    Stack S;
+    S.top = 0;
+
+    return S;
 }
 
-void deleteLast(list &L, adr &P) { // delete elemen L.first
-  bool statusDelete; // status apakah delete atau tidak
-  P = L.last;
-  if (L.first == Nil) { //list kosong
-    statusDelete = false;
-  } else if (L.first == L.last) { // list memiliki satu elemen
-    L.first = Nil;
-    L.last = Nil;
-    statusDelete = true;
-  } else { // list memiliki lebih dari satu elemen
-    L.last = P->prev;
-    L.last->next = Nil;
-    P->prev = Nil;
-    statusDelete = true;
-  }
-
-  // pesan apakah terjadi delete atau tidak
-  pesanDelete(statusDelete);
+bool isEmpty(Stack S) {
+    return S.top == 0;
 }
 
-void deleteAfter(list &L, adr Pred, adr &P) { // delete elemen setelah Pred
-  bool statusDelete; // status apakah delete atau tidak
-  P = Pred->next;
-  if (P == Nil) {
-    statusDelete = false;
-  } else if (P->next == Nil) { // tidak ada elemen setelah P
-    L.last = Pred;
+bool isFull(Stack S) {
+    return S.top == MAXSIZE;
+}
+
+void push(Stack &S, infotypeStack i) {
+    if (!isFull(S)) {
+        S.top++;
+        S.info[S.top-1] = i;
+    }
+}
+
+void pop(Stack &S, infotypeStack i) {
+    if (!isEmpty(S)) {
+        i = S.info[S.top-1];
+        S.top--;
+    }
+}
+
+infotypeStack peek(Stack S) {
+    infotypeStack i;
+
+    i.action = Nil;
+    i.info = Nil;
+    if (!isEmpty(S)) {
+        i = S.info[S.top];
+    }
+
+    return i;
+}
+
+// DLL
+List createList() {
+    List L;
+    L.first = createElmList('|');
+    L.last = L.first;
+
+    return L;
+}
+
+adr createElmList(infotype x) {
+    adr P = new elmList;
     P->prev = Nil;
-    Pred->next = Nil;
-    statusDelete = true;
-  } else if (P->next != Nil) { // ada elemen setelah P
-    Pred->next = P->next;
-    P->next->prev = Pred;
     P->next = Nil;
-    P->prev = Nil;
-    statusDelete = true;
-  }
+    P->info = x;
 
-  // pesan apakah terjadi delete atau tidak
-  pesanDelete(statusDelete);
+    return P;
 }
 
+void insertAfterCursor(List &L, adr cursor, adr &P) {
+    if (cursor->next != Nil) { // setelah kursor ada elemen
+        P->prev = cursor;
+        P->next = cursor->next;
+        cursor->next->prev = P;
+        cursor->next = P;
+    } else if (cursor->next == Nil) { // setelah kursor tidak ada elemen
+        P->prev = cursor;
+        cursor->next = P;
+        L.last = P;
+    }
+    cout << "Karakter sudah ditambahkan." << endl;
+}
+
+void printText(List L) {
+    adr P = L.first;
+    while (P != Nil) {
+        cout << P->info;
+        P = P->next;
+    }
+    cout << endl;
+}
