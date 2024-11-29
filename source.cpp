@@ -74,6 +74,33 @@ void insertAfterCursor(List &L, adr cursor, adr &P) {
     cout << "Karakter sudah ditambahkan." << endl;
 }
 
+void deleteLast(List &L, adr P){
+    if (L.first->next == nullptr){
+        P = L.first;
+        L.first = nullptr;
+        L.last = nullptr;
+    }else {
+        P = L.last;
+        L.last = P->prev;
+        P->prev = nullptr;
+        L.last->next = nullptr;
+    }
+}
+
+void deleteAfter(List &L, adr P, adr Prec){
+    if (L.first->next == nullptr){
+        P = L.first;
+        L.first = nullptr;
+        L.last = nullptr;
+    }else {
+        P = Prec->next;
+        Prec->next = P->next;
+        (P->next)->prev = Prec;
+        P->next = nullptr;
+        P->prev = nullptr;
+    }
+}
+
 void printText(List L) {
     adr P = L.first;
     while (P != Nil) {
