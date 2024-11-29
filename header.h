@@ -5,25 +5,47 @@
 
 using namespace std;
 
-//array undo/redo
-const int MAXSIZE = 1000;
+// Stack
+const int MAXSIZE = 10000;
+struct infotypeStack {
+    string action;
+    infotypeList info;
+};
 typedef int index;
-
-struct stack {
-  index top;
-  adr info[MAXSIZE]
+struct Stack {
+    infotypeStack info[MAXSIZE];
+    index top;
 };
 
-//DLL text editor
+Stack createStack();
+
+bool isEmpty(Stack S);
+
+bool isFull(Stack S);
+
+void push(Stack &S, infotypeStack i);
+
+void pop(Stack &S, infotypeStack i);
+
+infotypeStack peek(Stack S);
+
+// DLL
 typedef struct elmList *adr;
-typedef string infotype;
-
+typedef char infotypeList;
 struct elmList {
-  infotype info;
-  adr prev, next;
+    infotypeList info;
+    adr prev, next;
 };
-struct list {
-  adr first, last;
+struct List {
+    adr first, last;
 };
+
+List createList();
+
+adr createElmList(infotype x);
+
+void insertAfterCursor(List &L, adr cursor, adr &P);
+
+void printText(List L);
 
 #endif // HEADER_H_INCLUDED
