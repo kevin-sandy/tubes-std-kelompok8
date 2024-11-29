@@ -46,6 +46,10 @@ adr createElmList(infotype x);
 
 void insertAfterCursor(List &L, adr cursor, adr &P);
 
+void deleteLast(List &L, adr P);
+
+void deleteAfter(List &L, adr P, adr Prec);
+
 void printText(List L);
 
 #endif // HEADER_H_INCLUDED
