@@ -60,6 +60,17 @@ adr createElmList(infotype x) {
     return P;
 }
 
+void insertFirst(List &L, adr &P){
+  if (L.First == NIL) {
+      L.First = P;
+      L.Last = P;
+  }else {
+        P->next = L.First;
+        L.First->prev = P;
+        L.First = P;
+  }
+}
+
 void insertAfterCursor(List &L, adr cursor, adr &P) {
     if (cursor->next != Nil) { // setelah kursor ada elemen
         P->prev = cursor;
@@ -72,6 +83,20 @@ void insertAfterCursor(List &L, adr cursor, adr &P) {
         L.last = P;
     }
     cout << "Karakter sudah ditambahkan." << endl;
+}
+
+void deletefirst(List &L, adr &P) {
+    P = L.first;
+    if (L.first->next == nullptr) {
+        P = L.first;
+        L.first = nullptr;
+        L.last = nullptr;
+    } else { 
+        L.first = P->next;
+        L.first->prev = Nil;
+        P->next = Nil;
+        statusDelete = true;
+    }
 }
 
 void deleteLast(List &L, adr P){
