@@ -88,4 +88,6 @@ void pindahkan_kursor(List L, adr &C);
 
 void hapus_teks(List &L, adr &C);
 
+void cari_kata(List L);
+
 #endif // HEADER_H_INCLUDED
