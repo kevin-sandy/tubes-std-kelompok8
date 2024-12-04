@@ -1,50 +1,40 @@
 #include "header.h"
 
 int main() {
-    bool stop;
+    List Text;
+    adr Cursor;
     int pilih;
-    List TextList = createList();
-    Stack Undo
-    Stack Redo
 
-    for !stop {
-        printf("------- Text Editor -------")
-        printf(" 1. Input Text             ")
-        printf(" 2. Print Text             ")
-        printf(" 3. <-Kursor               ")
-        printf(" 4. Kursor->               ")
-        printf(" 5. Backspace              ")
-        printf(" 6. Delete                 ")
-        printf(" 7. Cari Kata              ")
-        printf(" 8. Ubah Huruf             ")
-        printf(" 9. Undo/Redo              ")
-        printf(" 0. Exit Program           ")
-        printf("---------------------------")
+    createList(Text, Cursor);
 
-        cout << "Pilih menu yang diinginkan: ";
+    printf("- Text Editor Kelompok 11 -\n");
+    do {
+        printf(" 1. Input Text             \n");
+        printf(" 2. Print Text             \n");
+        printf(" 3. Pindahkan Kursor       \n");
+        printf(" 4. Hapus Teks             \n");
+        printf(" 5. Cari Kata              \n");
+        printf(" 6. Undo/Redo              \n");
+        printf(" 0. Exit Program           \n");
+        printf("---------------------------\n");
+
+        cout << "Pilih menu: ";
         cin >> pilih;
 
         if (pilih == 1) {
-            input_text();
+            input_text(Text, Cursor);
         } else if (pilih == 2) {
-            print_text();
+            print_text(Text);
         } else if (pilih == 3) {
-            kursor_kiri();
+            pindahkan_kursor(Text, Cursor);
         } else if (pilih == 4) {
-            kursor_kanan();
+            hapus_teks(Text, Cursor);
         } else if (pilih == 5) {
-            hapus_backspace();
+            cari_kata(Text);
         } else if (pilih == 6) {
-            hapus_delete();
-        } else if (pilih == 7) {
-            cari_kata();
-        } else if (pilih == 8) {
-            ubah_huruf();
-        } else if (pilih == 9) {
-            undo_redo();
+            //undo_redo(Text, Cursor);
         }
+    } while (pilih != 0);
 
-        stop = pilih == 0 // pilih 0, maka exit program
-    }
-    printText(TextList);
+    return 0;
 }
